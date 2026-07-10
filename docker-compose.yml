@@ -1,0 +1,39 @@
+# ArrDeck web UI — run it next to your *arr stack and open it in any browser.
+#
+#   docker compose up -d      # build + start
+#   open http://<host>:8090
+#
+# Config (which services + API keys) is entered in the UI and saved to the
+# mounted ./arrdeck-config volume (nothing sensitive is baked into the image).
+
+services:
+  arrdeck:
+    build: .
+    container_name: arrdeck
+    ports:
+      - "8090:8090"                 # host:container — change the host side if 8090 is taken
+    volumes:
+      - ./arrdeck-config:/config    # persists /config/services.json outside the image
+    environment:
+      - ARRDECK_CONFIG_DIR=/config
+      - PORT=8090
+    restart: unless-stopped
+    # --- networking: see the block below ---
+    networks:
+      - media_net
+
+# =============================================================================
+# media_net is your EXISTING shared *arr Docker network — JOIN it, don't create
+# it. `external: true` means compose references a network you already have (the
+# one Sonarr/Radarr/SABnzbd/Prowlarr are on), so ArrDeck can reach them by
+# container name (e.g. http://sonarr:8989) with no host-port hop.
+#
+# IF YOU DON'T RUN A SHARED *arr NETWORK: delete BOTH the `networks:` list on the
+# service above AND this whole `networks:` block, then in the ArrDeck UI address
+# each service by its host IP + published port instead (e.g. http://192.168.1.50:8989).
+# The app works either way — container-name addressing is just the clean path for
+# a co-located stack.
+# =============================================================================
+networks:
+  media_net:
+    external: true

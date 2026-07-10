@@ -1,0 +1,138 @@
+/*
+ * ArrDeck design tokens — the LOCKED "command center" palette from DEV.md.
+ * Every component reads from these vars; no component hardcodes a color.
+ *
+ * Color-MEANING discipline:
+ *   amber  = your action / your choice / the AI
+ *   green  = healthy / working (status ONLY, never decorative)
+ *   red    = failed / mature
+ *   blue   = movie badge   purple = show badge
+ */
+:root {
+  /* Base + surfaces */
+  --bg: #16181d;
+  --surface: #1f2229;        /* raised card */
+  --surface-recessed: #1a1c22; /* unselected / recessed */
+  --border: #2f333c;
+  --divider: #2a2d35;
+
+  /* Text */
+  --text: #e8e6df;           /* primary */
+  --text-2: #a9adb8;         /* secondary */
+  --text-3: #8b909c;         /* secondary (dimmer) */
+  --muted: #6f7480;          /* muted */
+
+  /* Meaning colors */
+  --amber: #f0a626;          /* brand / action / selected / the AI mic */
+  --green: #3fb950;          /* health ONLY */
+  --red: #f09595;            /* failure / mature text */
+  --red-bg: #3a1515;         /* failure / mature background */
+  --blue: #85b7eb;           /* movie badge */
+  --purple: #c0a3f0;         /* show badge */
+
+  /* Shape */
+  --radius: 12px;
+  --radius-sm: 10px;
+
+  /* Type */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --fw-regular: 400;
+  --fw-medium: 500;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  /* Respect the notch / status bar on device. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Uppercase letterspaced micro-label for section headers. */
+.micro-label {
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------------------------------------------------------------------------
+ * Responsive layout — the ONE place the desktop treatment lives.
+ * Below 900px (all phones/mobile) these classes reproduce the EXACT previous
+ * inline caps (max-width 640/720 + centered), so the mobile layout is
+ * pixel-identical. At >=900px a desktop browser gets the wide treatment.
+ * (Screens keep their own inline padding; those become the side gutters.)
+ * ------------------------------------------------------------------------- */
+.ad-col {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.ad-col-wide {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.ad-col-full {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* Desktop "Recently added" rail: hide the scrollbar (arrows drive it); still
+ * scrolls programmatically + via trackpad. Applied only on the desktop rail, so
+ * the mobile scroller keeps its native scrollbar. */
+.ad-recent-rail {
+  scrollbar-width: none; /* Firefox */
+}
+.ad-recent-rail::-webkit-scrollbar {
+  display: none; /* WebKit/Chromium */
+}
+
+/* Library poster grid — mobile default: fixed 2-up (unchanged). */
+.arrdeck-poster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (min-width: 900px) {
+  /* Dashboards / lists / detail: a comfortable wide column (not the mobile 640/720),
+     centered so tiles and synopsis lines don't stretch absurdly on ultra-wide screens. */
+  .ad-col,
+  .ad-col-wide {
+    max-width: 1180px;
+  }
+  /* The library grid fills the whole window, with a real gutter. */
+  .ad-col-full {
+    max-width: none;
+    margin: 0;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  /* Dense, many-column poster grid that fills the width. */
+  .arrdeck-poster-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

@@ -1,0 +1,6 @@
+[
+  { "kind": "sonarr",   "addresses": ["http://192.168.1.100:8989"], "apiKey": "YOUR_SONARR_API_KEY" },
+  { "kind": "radarr",   "addresses": ["http://192.168.1.100:7878"], "apiKey": "YOUR_RADARR_API_KEY" },
+  { "kind": "sabnzbd",  "addresses": ["http://192.168.1.100:8080"], "apiKey": "YOUR_SAB_API_KEY" },
+  { "kind": "prowlarr", "addresses": ["http://192.168.1.100:9696"], "apiKey": "YOUR_PROWLARR_API_KEY" }
+]

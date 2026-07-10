@@ -1,0 +1,45 @@
+# ArrDeck container build context — keep it lean and SECRET-FREE.
+# Anything here is NOT sent to the Docker build. The builder installs its own
+# node_modules and runs `vite build`, so we ship only source + config files.
+
+# --- secrets / config (MUST never enter an image layer) ---
+config
+.env
+.env.*
+*.jks
+*.keystore
+key.properties
+key.properties.*
+
+# --- build outputs / deps (rebuilt inside the image) ---
+node_modules
+dist
+out
+
+# --- phone build / native (never needed server-side) ---
+android
+capacitor.config.ts
+assets
+
+# --- release artifacts ---
+*.apk
+*.aab
+
+# --- docs / landing page / dev scripts (not needed to build or run the BFF) ---
+docs
+web
+scripts
+.git
+.gitignore
+.vscode
+.idea
+*.md
+
+# --- container files themselves (not needed inside the context) ---
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Kept (NOT ignored) because the vite build + server bundle need them:
+#   src/  server/  index.html  vite.config.ts  tsconfig.json  package.json  package-lock.json

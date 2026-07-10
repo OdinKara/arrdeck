@@ -1,0 +1,52 @@
+{
+  "name": "arrdeck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ArrDeck — self-hosted media stack command center. UI-agnostic engine (src/engine) + React app shell (src/app), cross-platform (Android via Capacitor + web/Docker).",
+  "license": "AGPL-3.0-or-later",
+  "author": "GrimnirWorks <niamain@gmail.com> (https://grimnirworks.com)",
+  "homepage": "https://github.com/OdinKara/arrdeck",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OdinKara/arrdeck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OdinKara/arrdeck/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "probe": "tsx scripts/probe-stack.ts",
+    "typecheck": "tsc --noEmit",
+    "server": "tsx server/index.ts",
+    "server:seed": "tsx server/seed-from-env.ts",
+    "cap:sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/app": "^6.0.3",
+    "@capacitor/browser": "^6.0.4",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/preferences": "^6.0.3",
+    "express": "^4.22.2",
+    "lucide-react": "^0.469.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

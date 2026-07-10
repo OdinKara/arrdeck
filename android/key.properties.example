@@ -1,0 +1,13 @@
+# Release signing config for ArrDeck. Copy to `android/key.properties`
+# (which is gitignored) and fill in your own values. DO NOT commit the real file.
+#
+# Generate your own keystore (once) with keytool, e.g.:
+#   keytool -genkey -v -keystore release.jks -alias your-key-alias \
+#           -keyalg RSA -keysize 2048 -validity 10000
+# Place release.jks in the project root (gitignored via *.jks) and point
+# storeFile at it below.
+
+storeFile=../../release.jks
+storePassword=CHANGE_ME
+keyAlias=your-key-alias
+keyPassword=CHANGE_ME
