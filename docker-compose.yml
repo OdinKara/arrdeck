@@ -1,6 +1,6 @@
 # ArrDeck web UI — run it next to your *arr stack and open it in any browser.
 #
-#   docker compose up -d      # build + start
+#   docker compose up -d      # pull + start
 #   open http://<host>:8090
 #
 # Config (which services + API keys) is entered in the UI and saved to the
@@ -8,19 +8,18 @@
 
 services:
   arrdeck:
-    build: .
+    image: ghcr.io/odinkara/arrdeck:latest
     container_name: arrdeck
-    ports:
-      - "8090:8090"                 # host:container — change the host side if 8090 is taken
+    environment:
+      - PORT=8090
+      - ARRDECK_CONFIG_DIR=/config
     volumes:
       - ./arrdeck-config:/config    # persists /config/services.json outside the image
-    environment:
-      - ARRDECK_CONFIG_DIR=/config
-      - PORT=8090
-    restart: unless-stopped
-    # --- networking: see the block below ---
+    ports:
+      - "8090:8090"                 # host:container — change the host side if 8090 is taken
     networks:
       - media_net
+    restart: unless-stopped
 
 # =============================================================================
 # media_net is your EXISTING shared *arr Docker network — JOIN it, don't create
