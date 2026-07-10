@@ -1,6 +1,6 @@
 {
   "name": "arrdeck",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "type": "module",
   "description": "ArrDeck — self-hosted media stack command center. UI-agnostic engine (src/engine) + React app shell (src/app), cross-platform (Android via Capacitor + web/Docker).",

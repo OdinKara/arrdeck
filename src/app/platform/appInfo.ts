@@ -13,7 +13,7 @@ import { App } from '@capacitor/app';
 import { isNative } from './env.js';
 
 /** Fallback for non-native surfaces / plugin errors. Native getInfo() wins. */
-const FALLBACK_VERSION = '1.0.4';
+const FALLBACK_VERSION = '1.0.5';
 
 export interface AppVersion {
   version: string;
