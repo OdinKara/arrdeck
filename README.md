@@ -50,13 +50,7 @@ services:
       - ./arrdeck-config:/config      # holds services.json (your API keys, server-side only)
     ports:
       - "8090:8090"
-    networks:
-      - media_net                     # the SAME network your *arr containers share
     restart: unless-stopped
-
-networks:
-  media_net:
-    external: true                    # replace with your existing *arr network name
 ```
 
 ```bash
@@ -65,7 +59,25 @@ docker compose up -d
 # or pre-seed ./arrdeck-config/services.json (see Configuration).
 ```
 
-Because the container joins your *arr network, address services by **container name** — `http://sonarr:8989`, `http://radarr:7878`, etc. No CORS, no cleartext headaches.
+On first run, add each service by its **address + port** — the same `http://IP:port` you'd type in a browser (e.g. `http://192.168.1.50:8989`). ArrDeck can also **auto-discover** services running on your host — just tap **Scan** and it probes the known *arr default ports for you.
+
+**Optional: join your existing *arr Docker network**
+
+If your Sonarr/Radarr/etc. already run in Docker on a shared network, you can add ArrDeck to it and address them by container name (no IPs, CORS-free). Add to the compose:
+
+```yaml
+services:
+  arrdeck:
+    # ...existing config above...
+    networks:
+      - arr-network            # <- your existing *arr network's name
+
+networks:
+  arr-network:
+    external: true
+```
+
+Find your network's name with `docker network ls`. Then address services as `http://sonarr:8989`, `http://radarr:7878`, etc.
 
 <img src="screenshots/web-ui.png" alt="ArrDeck Docker web UI" width="820" />
 
@@ -95,6 +107,8 @@ Give a service **multiple** addresses to activate the happy-eyeballs race — e.
 ## 🔒 Security
 
 The web UI is a **control surface for your whole stack** — treat it like you'd treat Sonarr's own UI. Do **not** expose it raw to the internet. Put it behind your own reverse proxy with auth, or reach it over your VPN/tunnel. Keep `services.json` (it holds your keys) out of any public location.
+
+> ArrDeck runs as root inside the container, and its `./arrdeck-config` volume is created root-owned on the host — normal for a self-contained app that only manages its own `services.json`; it works out of the box with no permission setup. To run it unprivileged instead, add `user: "1000:1000"` to the service and pre-create `./arrdeck-config` owned by that UID.
 
 ## Building from source
 
