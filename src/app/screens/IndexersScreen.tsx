@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { ArrowLeft, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import {
   deriveIndexerHealth,
   type ProwlarrIndexerHealth,
@@ -13,6 +13,7 @@ import {
 } from '../../engine/index.js';
 import { resolveProwlarr } from '../lib/clients.js';
 import { Card, Spinner, StatusDot } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 
 function fmtTime(iso: string | null): string {
   if (!iso) return '';
@@ -57,20 +58,23 @@ export function IndexersScreen({ services, onBack }: { services: ServiceConfig[]
 
   return (
     <div className="ad-col" style={{ padding: '16px 16px 20px' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-        <button onClick={onBack} aria-label="Back" style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: 'var(--text-2)', padding: 8, cursor: 'pointer', display: 'inline-flex' }}>
-          <ArrowLeft size={18} />
-        </button>
-        <span style={{ fontSize: 20, fontWeight: 500, color: 'var(--amber)', flex: 1 }}>Indexers</span>
-        {rows && (
-          <span style={{ fontSize: 13, fontWeight: 500, color: healthy === enabled ? 'var(--green)' : 'var(--red)', fontFamily: 'ui-monospace, monospace' }}>
-            {healthy}/{enabled}
-          </span>
-        )}
-        <button onClick={() => load(true)} aria-label="Refresh" style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: 'var(--text-2)', padding: 8, cursor: 'pointer', display: 'inline-flex' }}>
-          <RefreshCw size={15} style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined} />
-        </button>
-      </header>
+      <AppHeader
+        showBack
+        onBack={onBack}
+        title="Indexers"
+        actions={
+          <>
+            {rows && (
+              <span style={{ fontSize: 13, fontWeight: 500, color: healthy === enabled ? 'var(--green)' : 'var(--red)', fontFamily: 'ui-monospace, monospace' }}>
+                {healthy}/{enabled}
+              </span>
+            )}
+            <button onClick={() => load(true)} aria-label="Refresh" style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: 'var(--text-2)', padding: 8, cursor: 'pointer', display: 'inline-flex' }}>
+              <RefreshCw size={15} style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined} />
+            </button>
+          </>
+        }
+      />
 
       {error ? (
         <Card recessed>

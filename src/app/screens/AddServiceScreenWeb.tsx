@@ -11,7 +11,7 @@
  */
 
 import { useState } from 'react';
-import { ArrowLeft, Check, Loader2, KeyRound, ExternalLink, Zap } from 'lucide-react';
+import { Check, Loader2, KeyRound, ExternalLink, Zap } from 'lucide-react';
 import { buildBaseUrl, type ServiceKind } from '../../engine/index.js';
 import { SERVICE_META } from '../lib/serviceMeta.js';
 import { apiKeySettingsUrl, apiKeyHint } from '../lib/keyHelp.js';
@@ -19,6 +19,7 @@ import { notifyDataChanged } from '../lib/dataEvents.js';
 import * as webApi from '../platform/webApi.js';
 import { Button, Card, Spinner, TextInput } from '../components/ui.tsx';
 import { SelectChips } from '../components/form.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 
 const spin = { animation: 'arrdeck-spin 900ms linear infinite' } as const;
 
@@ -74,14 +75,7 @@ export function AddServiceScreenWeb({ onDone, onCancel }: { onDone: () => void; 
 
   return (
     <div className="ad-col" style={{ padding: 18 }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-        {onCancel && (
-          <button onClick={onCancel} aria-label="Back" style={backBtn}>
-            <ArrowLeft size={18} />
-          </button>
-        )}
-        <span style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)' }}>ArrDeck</span>
-      </header>
+      <AppHeader showBack={!!onCancel} onBack={onCancel} title="ArrDeck" titleSize={22} marginBottom={18} />
 
       <div className="micro-label" style={{ margin: '4px 4px 10px' }}>Add a service</div>
 
@@ -134,17 +128,6 @@ export function AddServiceScreenWeb({ onDone, onCancel }: { onDone: () => void; 
     </div>
   );
 }
-
-const backBtn = {
-  background: 'transparent',
-  border: '1px solid var(--border)',
-  borderRadius: 'var(--radius-sm)',
-  color: 'var(--text-2)',
-  padding: 8,
-  cursor: 'pointer',
-  display: 'inline-flex',
-  flexShrink: 0,
-} as const;
 
 const linkBtn = {
   display: 'inline-flex',

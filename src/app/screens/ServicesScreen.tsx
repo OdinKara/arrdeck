@@ -19,6 +19,7 @@ import { isNative } from '../platform/env.js';
 import * as webApi from '../platform/webApi.js';
 import { getAppVersion } from '../platform/appInfo.js';
 import { Button, Card, Spinner, StatusDot } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 
 // Only the two fields the row renders — so the NATIVE (resolveService) and WEB
 // (BFF /api/verify) branches can feed the same shape.
@@ -91,31 +92,28 @@ export function ServicesScreen({
 
   return (
     <div className="ad-col" style={{ padding: 18 }}>
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 16,
-        }}
-      >
-        <span style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)' }}>ArrDeck</span>
-        <button
-          onClick={refresh}
-          aria-label="Refresh"
-          style={{
-            background: 'transparent',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-sm)',
-            color: 'var(--text-2)',
-            padding: 8,
-            cursor: 'pointer',
-            display: 'inline-flex',
-          }}
-        >
-          <RefreshCw size={16} />
-        </button>
-      </header>
+      <AppHeader
+        title="ArrDeck"
+        titleSize={22}
+        marginBottom={16}
+        actions={
+          <button
+            onClick={refresh}
+            aria-label="Refresh"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-sm)',
+              color: 'var(--text-2)',
+              padding: 8,
+              cursor: 'pointer',
+              display: 'inline-flex',
+            }}
+          >
+            <RefreshCw size={16} />
+          </button>
+        }
+      />
 
       <div className="micro-label" style={{ margin: '4px 4px 10px' }}>
         Services

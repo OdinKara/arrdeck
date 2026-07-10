@@ -18,6 +18,7 @@ import { resolveSab } from '../lib/clients.js';
 import { fmtMB, fmtSabSpeed } from '../lib/format.js';
 import { notifyDataChanged } from '../lib/dataEvents.js';
 import { Button, Card, Spinner, StatusDot } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 import { ProgressBar } from '../components/visuals.tsx';
 
 const POLL_MS = 5000;
@@ -113,21 +114,26 @@ export function QueueScreen({ services }: { services: ServiceConfig[] }) {
 
   return (
     <div className="ad-col" style={{ padding: '16px 16px 8px' }}>
-      <header style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 14 }}>
-        <span style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)', flex: 1 }}>Downloads</span>
-        {queue && items.length > 0 && (
-          <span style={{ fontSize: 13, color: 'var(--amber)', fontWeight: 500 }}>{fmtSabSpeed(queue.speed)}</span>
-        )}
-        {client && (
-          <button
-            onClick={() => void loadAll(client)}
-            aria-label="Refresh"
-            style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: 'var(--text-2)', padding: 7, cursor: 'pointer', display: 'inline-flex' }}
-          >
-            <RefreshCw size={15} />
-          </button>
-        )}
-      </header>
+      <AppHeader
+        title="Downloads"
+        titleSize={22}
+        actions={
+          <>
+            {queue && items.length > 0 && (
+              <span style={{ fontSize: 13, color: 'var(--amber)', fontWeight: 500 }}>{fmtSabSpeed(queue.speed)}</span>
+            )}
+            {client && (
+              <button
+                onClick={() => void loadAll(client)}
+                aria-label="Refresh"
+                style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: 'var(--text-2)', padding: 7, cursor: 'pointer', display: 'inline-flex' }}
+              >
+                <RefreshCw size={15} />
+              </button>
+            )}
+          </>
+        }
+      />
 
       {loading ? (
         <Card recessed>

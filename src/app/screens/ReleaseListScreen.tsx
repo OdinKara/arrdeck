@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Download, Flag, Loader2, Search as SearchIcon } from 'lucide-react';
+import { Download, Flag, Loader2, Search as SearchIcon } from 'lucide-react';
 import {
   sortReleases,
   filterOutRejected,
@@ -17,6 +17,7 @@ import {
 import { notifyDataChanged } from '../lib/dataEvents.js';
 import { fmtBytes } from '../lib/format.js';
 import { Card, Spinner } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 
 const spin = 'arrdeck-spin 900ms linear infinite';
 
@@ -103,17 +104,18 @@ export function ReleaseListScreen({
 
   return (
     <div className="ad-col-wide" style={{ padding: '16px 14px 28px' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-        <button onClick={onBack} aria-label="Back" style={backBtn}>
-          <ArrowLeft size={18} />
-        </button>
-        <div style={{ minWidth: 0 }}>
-          <div className="micro-label" style={{ color: 'var(--amber)' }}>Interactive Search</div>
-          <div style={{ fontSize: 17, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {title}
-          </div>
-        </div>
-      </header>
+      <AppHeader
+        showBack
+        onBack={onBack}
+        title={
+          <>
+            <div className="micro-label" style={{ color: 'var(--amber)' }}>Interactive Search</div>
+            <div style={{ fontSize: 17, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {title}
+            </div>
+          </>
+        }
+      />
 
       {/* Controls */}
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginBottom: 14 }}>
@@ -242,17 +244,6 @@ export function ReleaseListScreen({
 }
 
 // --- styles ---------------------------------------------------------------
-
-const backBtn = {
-  background: 'transparent',
-  border: '1px solid var(--border)',
-  borderRadius: 'var(--radius-sm)',
-  color: 'var(--text-2)',
-  padding: 8,
-  cursor: 'pointer',
-  display: 'inline-flex',
-  flexShrink: 0,
-} as const;
 
 function chip(sel: boolean) {
   return {

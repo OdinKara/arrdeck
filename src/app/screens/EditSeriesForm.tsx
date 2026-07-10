@@ -18,6 +18,7 @@ import {
   type SonarrTag,
 } from '../../engine/index.js';
 import { Button } from '../components/ui.tsx';
+import { SponsorHeart } from '../components/SponsorHeart.tsx';
 import { Field, RootFolderList, SelectChips, TagPicker, TextField, ToggleRow } from '../components/form.tsx';
 
 interface FormState {
@@ -181,6 +182,7 @@ export function EditSeriesForm({
         <span style={{ flex: 1, fontSize: 16, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           Edit — {seriesTitle}
         </span>
+        <SponsorHeart />
       </header>
 
       <div className="ad-col" style={{ flex: 1, overflowY: 'auto', padding: 16, width: '100%' }}>

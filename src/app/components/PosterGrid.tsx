@@ -5,8 +5,9 @@
  */
 
 import { useMemo, useState } from 'react';
-import { ArrowLeft, Search as SearchIcon, RefreshCw } from 'lucide-react';
+import { Search as SearchIcon, RefreshCw } from 'lucide-react';
 import { Card, Spinner } from './ui.tsx';
+import { AppHeader } from './AppHeader.tsx';
 import { Poster, Skeleton } from './visuals.tsx';
 
 export type BadgeTone = 'green' | 'amber' | 'muted';
@@ -45,15 +46,16 @@ export function PosterGrid({
 
   return (
     <div className="ad-col-full" style={{ paddingTop: 16, paddingBottom: 20 }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-        <IconBtn onClick={onBack} aria="Back">
-          <ArrowLeft size={18} />
-        </IconBtn>
-        <span style={{ fontSize: 20, fontWeight: 500, color: 'var(--amber)', flex: 1 }}>{title}</span>
-        <IconBtn onClick={onRefresh} aria="Refresh">
-          <RefreshCw size={16} style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined} />
-        </IconBtn>
-      </header>
+      <AppHeader
+        showBack
+        onBack={onBack}
+        title={title}
+        actions={
+          <IconBtn onClick={onRefresh} aria="Refresh">
+            <RefreshCw size={16} style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined} />
+          </IconBtn>
+        }
+      />
 
       <div
         style={{

@@ -15,6 +15,7 @@ import {
 } from '../../engine/index.js';
 import { resolveArrClients } from '../lib/clients.js';
 import { Card } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 import { KindBadge, Poster, Skeleton } from '../components/visuals.tsx';
 import { DetailScreen } from './DetailScreen.tsx';
 
@@ -70,9 +71,7 @@ export function SearchScreen({
 
   return (
     <div className="ad-col" style={{ padding: '16px 16px 8px' }}>
-      <header style={{ marginBottom: 12 }}>
-        <span style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)' }}>Search</span>
-      </header>
+      <AppHeader title="Search" titleSize={22} marginBottom={12} />
 
       {/* Search bar */}
       <div

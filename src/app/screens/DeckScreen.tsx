@@ -12,6 +12,7 @@ import { useIsDesktop } from '../hooks/useIsDesktop.js';
 import { SERVICE_META } from '../lib/serviceMeta.js';
 import { fmtBytes, fmtMB, fmtSabSpeed } from '../lib/format.js';
 import { Card, StatusDot } from '../components/ui.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 import { KindBadge, Poster, ProgressBar, Skeleton } from '../components/visuals.tsx';
 import type { Tab } from '../components/BottomNav.tsx';
 import type { ServiceConn, RecentItem } from '../lib/dashboard.js';
@@ -40,24 +41,25 @@ export function DeckScreen({
   return (
     <div className="ad-col" style={{ padding: '16px 16px 8px' }}>
       {/* Header */}
-      <header style={{ display: 'flex', alignItems: 'center', marginBottom: 14 }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)', lineHeight: 1 }}>
-            ArrDeck
-          </div>
-          <ConnectionIndicator data={data} loading={loading} />
-        </div>
-        <IconBtn onClick={refresh} aria={refreshing ? 'Refreshing' : 'Refresh'}>
-          <RefreshCw
-            size={17}
-            style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined}
-          />
-        </IconBtn>
-        <div style={{ width: 8 }} />
-        <IconBtn onClick={() => onGoTab('services')} aria="Settings">
-          <Settings size={17} />
-        </IconBtn>
-      </header>
+      <AppHeader
+        title="ArrDeck"
+        titleSize={22}
+        subtitle={<ConnectionIndicator data={data} loading={loading} />}
+        actions={
+          <>
+            <IconBtn onClick={refresh} aria={refreshing ? 'Refreshing' : 'Refresh'}>
+              <RefreshCw
+                size={17}
+                style={refreshing ? { animation: 'arrdeck-spin 900ms linear infinite' } : undefined}
+              />
+            </IconBtn>
+            <div style={{ width: 8 }} />
+            <IconBtn onClick={() => onGoTab('services')} aria="Settings">
+              <Settings size={17} />
+            </IconBtn>
+          </>
+        }
+      />
 
       {/* Search bar (navigates to Search tab; mic is a placeholder) */}
       <button

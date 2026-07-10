@@ -24,6 +24,7 @@ import { resolveSonarr } from '../lib/clients.js';
 import { notifyDataChanged } from '../lib/dataEvents.js';
 import { Card, Spinner } from '../components/ui.tsx';
 import { Toggle } from '../components/form.tsx';
+import { SponsorHeart } from '../components/SponsorHeart.tsx';
 import { Poster, Skeleton } from '../components/visuals.tsx';
 import { EditSeriesForm } from './EditSeriesForm.tsx';
 import { ReleaseListScreen } from './ReleaseListScreen.tsx';
@@ -277,7 +278,10 @@ export function SeriesDetailScreen({
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 15%, var(--bg) 96%)' }} />
         <div style={{ position: 'relative', padding: 16 }}>
-          <BackBtn onBack={onBack} />
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <BackBtn onBack={onBack} />
+            <SponsorHeart variant="hero" />
+          </div>
           <div style={{ display: 'flex', gap: 14, marginTop: 14 }}>
             <Poster url={detail.posterUrl} width={104} />
             <div style={{ flex: 1, minWidth: 0, paddingTop: 2 }}>

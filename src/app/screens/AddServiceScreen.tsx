@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react';
-import { ScanSearch, Check, ArrowLeft, Plus } from 'lucide-react';
+import { ScanSearch, Check, Plus } from 'lucide-react';
 import {
   scanHost,
   probeAddress,
@@ -23,6 +23,7 @@ import { connectService } from '../lib/connect.js';
 import { Button, Card, Spinner, StatusDot, TextInput } from '../components/ui.tsx';
 import { ServiceKeyEntry } from '../components/ServiceKeyEntry.tsx';
 import { SelectChips } from '../components/form.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 import { isNative } from '../platform/env.js';
 import { AddServiceScreenWeb } from './AddServiceScreenWeb.tsx';
 
@@ -146,32 +147,16 @@ export function AddServiceScreen({
 
   return (
     <div style={{ padding: 18, maxWidth: 640, margin: '0 auto' }}>
-      <header style={{ marginBottom: 18 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          {onCancel && (
-            <button
-              onClick={onCancel}
-              aria-label="Back"
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-sm)',
-                color: 'var(--text-2)',
-                padding: 8,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                flexShrink: 0,
-              }}
-            >
-              <ArrowLeft size={18} />
-            </button>
-          )}
-          <span style={{ fontSize: 22, fontWeight: 500, color: 'var(--amber)' }}>ArrDeck</span>
-        </div>
-        <p style={{ color: 'var(--text-3)', fontSize: 13, margin: '6px 0 0' }}>
-          Enter your server's address and scan for services.
-        </p>
-      </header>
+      <AppHeader
+        showBack={!!onCancel}
+        onBack={onCancel}
+        title="ArrDeck"
+        titleSize={22}
+        marginBottom={6}
+      />
+      <p style={{ color: 'var(--text-3)', fontSize: 13, margin: '0 0 18px' }}>
+        Enter your server's address and scan for services.
+      </p>
 
       <Card style={{ marginBottom: 16 }}>
         <div className="micro-label" style={{ marginBottom: 8 }}>

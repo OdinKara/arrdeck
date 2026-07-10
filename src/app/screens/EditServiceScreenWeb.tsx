@@ -19,6 +19,7 @@ import { notifyDataChanged } from '../lib/dataEvents.js';
 import * as webApi from '../platform/webApi.js';
 import { Button, Card, Spinner } from '../components/ui.tsx';
 import { TextField } from '../components/form.tsx';
+import { AppHeader } from '../components/AppHeader.tsx';
 
 const spin = { animation: 'arrdeck-spin 900ms linear infinite' } as const;
 
@@ -132,11 +133,13 @@ export function EditServiceScreenWeb({
 
   return (
     <div className="ad-col" style={{ padding: '16px 16px 24px' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-        <BackBtn onBack={onBack} />
-        <Icon size={22} color="var(--text)" strokeWidth={1.75} />
-        <span style={{ fontSize: 20, fontWeight: 500, flex: 1 }}>{meta.label}</span>
-      </header>
+      <AppHeader
+        showBack
+        onBack={onBack}
+        marginBottom={18}
+        leading={<Icon size={22} color="var(--text)" strokeWidth={1.75} />}
+        title={<span style={{ fontSize: 20, fontWeight: 500 }}>{meta.label}</span>}
+      />
 
       {/* Addresses */}
       <div className="micro-label" style={{ margin: '0 2px 10px' }}>Addresses</div>
