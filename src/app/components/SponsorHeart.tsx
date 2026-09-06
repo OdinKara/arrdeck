@@ -3,6 +3,11 @@
  * bespoke poster-hero / edit-modal screens. Single source of the heart visual +
  * link behaviour; never duplicate this elsewhere.
  *
+ * Tapping it used to jump straight out to GitHub Sponsors. It now opens the
+ * SupportSheet instead, which shows every rail (Bitcoin, Lightning, X Money,
+ * Sponsors) — the heart is still the ONLY donate entry point in the app, and
+ * still does nothing until it is deliberately tapped.
+ *
  * `variant`:
  *   'bar'  — bordered transparent button, sits with refresh/settings actions.
  *   'hero' — a dark translucent scrim (like the floating BackBtn on detail
@@ -10,8 +15,9 @@
  *            poster backdrops.
  */
 
+import { useState } from 'react';
 import { Heart } from 'lucide-react';
-import { SPONSOR_URL, openSponsor } from '../lib/sponsor.js';
+import { SupportSheet } from './SupportSheet.tsx';
 
 /**
  * Donate red — a vivid crimson that stays legible on the #16181d charcoal.
@@ -27,6 +33,8 @@ export function SponsorHeart({
   size?: number;
   variant?: 'bar' | 'hero';
 }) {
+  const [open, setOpen] = useState(false);
+
   const base: React.CSSProperties = {
     borderRadius: 'var(--radius-sm)',
     padding: 8,
@@ -46,14 +54,18 @@ export function SponsorHeart({
           border: '1px solid var(--border)',
         };
   return (
-    <button
-      onClick={() => void openSponsor()}
-      aria-label="Sponsor ArrDeck"
-      title="Sponsor ArrDeck"
-      data-sponsor-url={SPONSOR_URL}
-      style={{ ...base, ...skin }}
-    >
-      <Heart size={size} fill={SPONSOR_RED} stroke={SPONSOR_RED} />
-    </button>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="Support ArrDeck"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        title="Support ArrDeck"
+        style={{ ...base, ...skin }}
+      >
+        <Heart size={size} fill={SPONSOR_RED} stroke={SPONSOR_RED} />
+      </button>
+      {open && <SupportSheet onClose={() => setOpen(false)} />}
+    </>
   );
 }

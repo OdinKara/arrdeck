@@ -123,7 +123,7 @@ Release-signed builds are produced by the maintainer with a private keystore; th
 
 ## Support
 
-If ArrDeck saves you some clicks, you can support development via [GitHub Sponsors](https://github.com/sponsors/OdinKara). Issues and PRs welcome.
+ArrDeck is free and AGPL, and nothing in it is paywalled — no paid tier, no key, no feature held back. If it saves you some clicks, there's a tip jar at **[donate.grimnirworks.com](https://donate.grimnirworks.com)** (Bitcoin, Lightning, X Money, GitHub Sponsors), also reachable from the heart in the app's header. Issues and PRs are just as welcome.
 
 ## License
 
