@@ -22,7 +22,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/arrdeck
 
 # Least privilege: read the code, write the package. Nothing else.
 permissions:
@@ -45,9 +44,15 @@ jobs:
       # The image must be traceable back to a commit. "What is actually running?"
       # was unanswerable before, and that is exactly how the stale deploy went
       # unnoticed, so the short SHA becomes both a tag and an OCI label.
-      - name: Derive short SHA
+      - name: Derive image name and short SHA
         id: meta
-        run: echo "sha=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_OUTPUT"
+        run: |
+          # Docker repository names MUST be lowercase, and the GitHub owner is
+          # "OdinKara" - using ${{ github.repository_owner }} verbatim fails with
+          # 'repository name must be lowercase'. Lowercased at runtime rather
+          # than hardcoded so it still works if the account is ever renamed.
+          echo "image=${REGISTRY}/$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')/arrdeck" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Set up Buildx
         uses: docker/setup-buildx-action@v3
@@ -70,8 +75,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.sha }}
+            ${{ steps.meta.outputs.image }}:latest
+            ${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.sha }}
           # Read these back on the NAS with:
           #   docker image inspect ghcr.io/odinkara/arrdeck:latest \
           #     --format '{{index .Config.Labels "org.opencontainers.image.revision"}}'
@@ -91,8 +96,8 @@ jobs:
             echo "### Published"
             echo ""
             echo '```'
-            echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
-            echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.sha }}"
+            echo "${{ steps.meta.outputs.image }}:latest"
+            echo "${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.sha }}"
             echo '```'
             echo ""
             echo "Commit \`${{ steps.meta.outputs.sha }}\` — redeploy with:"
