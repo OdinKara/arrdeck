@@ -20,7 +20,6 @@ import {
   BTC_ADDRESS,
   DONATE_URL,
   LN_ADDRESS,
-  SPONSOR_URL,
   X_URL,
 } from '../lib/sponsor.js';
 
@@ -29,7 +28,6 @@ describe('donation constants', () => {
     expect(BTC_ADDRESS).toBe('bc1q9c2jx7ve0s2g7pg4fp3wkg7sqyk0zueyqj9jp5');
     expect(LN_ADDRESS).toBe('wwbd@strike.me');
     expect(X_URL).toBe('https://x.com/WWBD01_Freedom');
-    expect(SPONSOR_URL).toBe('https://github.com/sponsors/OdinKara');
     expect(DONATE_URL).toBe('https://donate.grimnirworks.com');
   });
 });
@@ -55,8 +53,11 @@ describe('SupportSheet', () => {
     expect(html).toContain(BTC_ADDRESS);
     expect(html).toContain(LN_ADDRESS);
     expect(html).toContain('X Money');
-    expect(html).toContain('GitHub Sponsors');
     expect(html).toContain('donate.grimnirworks.com');
+    // The GitHub Sponsors rail is RETIRED. Asserted absent rather than just
+    // deleted, so it cannot quietly return and point users at a dead page.
+    expect(html).not.toContain('GitHub Sponsors');
+    expect(html).not.toContain('github.com/sponsors');
   });
 
   it('renders QR codes locally as inline SVG, never from an external service', () => {
@@ -70,10 +71,6 @@ describe('SupportSheet', () => {
   it('is a dismissible dialog with a close control', () => {
     expect(html).toContain('role="dialog"');
     expect(html).toContain('aria-label="Close"');
-  });
-
-  it('says Sponsors may be unavailable rather than showing a dead link silently', () => {
-    expect(html).toContain('Pending approval');
   });
 });
 

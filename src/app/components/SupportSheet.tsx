@@ -23,12 +23,9 @@ import { Heart, X, Copy, Check, ExternalLink } from 'lucide-react';
 import {
   CRYPTO_RAILS,
   DONATE_URL,
-  SPONSORS_PENDING,
-  SPONSOR_URL,
   X_HANDLE,
   X_URL,
   openDonatePage,
-  openSponsor,
   openX,
 } from '../lib/sponsor.js';
 import { copyText } from '../platform/clipboard.js';
@@ -228,17 +225,6 @@ export function SupportSheet({ onClose }: { onClose: () => void }) {
         ))}
 
         <LinkRow label="X Money" sub={X_HANDLE} onClick={() => void openX()} />
-
-        <LinkRow
-          label="GitHub Sponsors"
-          sub={SPONSOR_URL.replace('https://', '')}
-          onClick={() => void openSponsor()}
-          note={
-            SPONSORS_PENDING
-              ? 'Pending approval — this link may still 404. Not your end; use another rail.'
-              : undefined
-          }
-        />
 
         <div style={{ borderTop: '1px solid var(--divider)', paddingTop: 13, marginTop: 1 }}>
           <button

@@ -26,16 +26,6 @@ import { openExternal } from '../platform/browser.js';
 /** The donation landing page — the canonical, always-current list of rails. */
 export const DONATE_URL = 'https://donate.grimnirworks.com';
 
-/** GitHub Sponsors. May 404 until the account is approved; see SPONSORS_PENDING. */
-export const SPONSOR_URL = 'https://github.com/sponsors/OdinKara';
-
-/**
- * GitHub Sponsors is not approved yet, so the link can 404. The sheet says so
- * rather than letting a user hit a dead page and assume ArrDeck is broken.
- * Flip to false once the account is live.
- */
-export const SPONSORS_PENDING = true;
-
 /** X Money. */
 export const X_URL = 'https://x.com/WWBD01_Freedom';
 export const X_HANDLE = '@WWBD01_Freedom';
@@ -71,10 +61,6 @@ export type CryptoRail = (typeof CRYPTO_RAILS)[number];
 /** Open the donate landing page (system browser on native, new tab on web). */
 export function openDonatePage(): Promise<void> {
   return openExternal(DONATE_URL);
-}
-
-export function openSponsor(): Promise<void> {
-  return openExternal(SPONSOR_URL);
 }
 
 export function openX(): Promise<void> {
