@@ -11,7 +11,13 @@ Search, control, and monitor your *arr stack — Sonarr · Radarr · SABnzbd · 
 [![Release](https://img.shields.io/github/v/release/OdinKara/arrdeck?color=3fb950)](https://github.com/OdinKara/arrdeck/releases)
 [![Docker image](https://img.shields.io/badge/ghcr.io-odinkara%2Farrdeck-85b7eb)](https://github.com/OdinKara/arrdeck/pkgs/container/arrdeck)
 
+<img src="screenshots/demo.gif" alt="ArrDeck: search, grab, and watch the queue fill" width="820" />
+
+<sub>Search a title, open the result, set quality profile and root folder, grab it — and the queue fills and starts downloading. One pass, one app.</sub>
+
 <img src="screenshots/deck.jpg" alt="The ArrDeck dashboard" width="820" />
+
+<sub>The dashboard: live queue and speed, indexer health, disk free, service status.</sub>
 
 </div>
 
