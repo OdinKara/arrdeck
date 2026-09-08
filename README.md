@@ -133,4 +133,4 @@ ArrDeck is free and AGPL, and nothing in it is paywalled — no paid tier, no ke
 
 ## License
 
-[AGPL-3.0-or-later](LICENSE). ArrDeck stays open source — **including if you host the web UI as a service.** If you modify and serve it, you share your source. Copyright © 2026 GrimnirWorks · [GrimnirWorks](https://grimnirworks.com).
+[AGPL-3.0-or-later](LICENSE). ArrDeck stays open source — **including if you host the web UI as a service.** If you modify and serve it, you share your source. Copyright © 2026 [GrimnirWorks](https://grimnirworks.com).

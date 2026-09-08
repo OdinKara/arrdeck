@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 // Release signing reads from android/key.properties (gitignored). It is
-// OPTIONAL: if the file is absent (e.g. debug builds, or before the maintainer fills in
-// the password), signing is simply skipped and debug builds still work.
+// OPTIONAL: if the file is absent (e.g. debug builds, or before the maintainer
+// fills in the password), signing is simply skipped and debug builds still work.
 def keystorePropertiesFile = rootProject.file("key.properties")
 def keystoreProperties = new Properties()
 if (keystorePropertiesFile.exists()) {
